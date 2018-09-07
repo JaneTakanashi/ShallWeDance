@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>zhu!</title>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <main>
+        <div id="parallax1" class="parallax-container">
+            <div class="parallax">
+                <div class="row">
+                    <div class="col s6">
+                        <h1>Shall We Dance</h1>
+                    </div>
+                </div>
+                <img src="img/bg6.jpeg" >
+            </div>
+        </div>
+        <div class="section white">
+            <div class="row container">
+                <h2 class="header">GAKKI- koi dance 恋ダンス</h2>
+                <div id="loading" class=class="grey-text text-darken-3 lighten-3">
+                    Loading the model...
+                </div>
+                <div class="row">
+                    <div class="col s6">
+                        <div id='main' style='display:none'>
+                            <video id="video" playsinline style=" -moz-transform: scaleX(-1);-o-transform: scaleX(-1);-webkit-transform: scaleX(-1);transform: scaleX(-1);display: none;">
+                            </video>
+                            <canvas id="output" />
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <p>
+                            <!-- <video width="400" controls> -->
+                             <video id="koi_video" width="400">
+                                <source src="/video/gakki4_short.mp4" type="video/mp4"/>
+                             </video>
+                         </p>
+                         <p><a class="waves-effect waves-light btn" onclick="play_koi();">play</a></p>
+                         <p><a class="waves-effect waves-light btn" onclick="pause_koi();">pause</a></p>
+                         <p>
+                             <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+                             <!-- Modal Structure -->
+                             <div id="modal1" class="modal">
+                                 <div class="modal-content">
+                                     <h4>Modal Preview</h4>
+                                     <p>A bunch of text</p>
+                                     <video width="400" controls>
+                                         <source src="/video/gakki4_short.mp4" type="video/mp4"/>
+                                      </video>
+                                 </div>
+                                 <!-- <div class="modal-footer">
+                                     <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                                 </div> -->
+                             </div>
+
+                         </p>
+                    </div>
+                </div>
+                <p class="grey-text text-darken-3 lighten-3">
+                    Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.
+                </p>
+            </div>
+        </div>
+        <div class="parallax-container">
+            <div class="parallax">
+                <img src="img/bg5.jpg">
+            </div>
+        </div>
+    </main>
+
+    <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/tf.min.js"></script>
+    <script type="text/javascript" src="js/posenet.min.js"></script>
+    <script type="text/javascript" src="js/dat.gui.js"></script>
+    <script type="text/javascript" src="js/demo_util.js"></script>
+    <script type="text/javascript" src="js/stats.min.js "></script>
+    <script type="text/javascript" src="js/camera.js"></script>
+    <script>
+        var imageScaleFactor = 0.5;
+        var outputStride = 16;
+        var flipHorizontal = false;
+        var koi  = document.getElementById("koi_video")
+
+        $(document).ready(function(){
+            $('.parallax').parallax();
+            $('.modal').modal();
+        });
+
+        function play_koi() {
+            console.log("play--")
+            koi.play();
+        }
+
+        function pause_koi() {
+            koi.pause();
+        }
+    </script>
+</body>
+</html>

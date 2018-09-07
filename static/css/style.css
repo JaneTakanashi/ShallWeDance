@@ -1,0 +1,20 @@
+body {
+    /* display: flex;
+    min-height: 100vh;
+    flex-direction: column; */
+    /* background-color: #FAFAFA!important; */
+    /* background-image: url(../img/bg3.jpg);
+    background-repeat: no-repeat;
+    background-size: contain; */
+}
+
+main {
+    /* display: flex;
+    flex: 1 0 auto;
+    margin-top: 1rem!important;
+    margin-bottom: 1rem!important; */
+}
+
+#parallax1 {
+    height: 700px;
+}
