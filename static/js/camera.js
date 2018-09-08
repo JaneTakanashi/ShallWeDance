@@ -191,6 +191,8 @@ function setupFPS() {
  * Feeds an image to posenet to estimate poses - this is where the magic happens.
  * This function loops with a requestAnimationFrame method.
  */
+
+ var poses = [];
 function detectPoseInRealTime(video, net) {
   const canvas = document.getElementById('output');
   const ctx = canvas.getContext('2d');
@@ -218,7 +220,8 @@ function detectPoseInRealTime(video, net) {
     const imageScaleFactor = guiState.input.imageScaleFactor;
     const outputStride = Number(guiState.input.outputStride);
 
-    let poses = [];
+    // let poses = [];
+    poses = [];
     let minPoseConfidence;
     let minPartConfidence;
     switch (guiState.algorithm) {
@@ -258,6 +261,32 @@ function detectPoseInRealTime(video, net) {
     // and draw the resulting skeleton and keypoints if over certain confidence
     // scores
     poses.forEach(({ score, keypoints }) => {
+        // console.log(keypoints)
+        // difference of leftHip and leftWrist
+        video_vec = [];
+        video_score_vec = [];
+        for (id of video_keypoints_id) {
+            video_vec.push(keypoints[id].position.x);
+            video_vec.push(keypoints[id].position.y);
+            video_score_vec.push(keypoints[id].score);
+        }
+
+        if(detect_pose_flag) {
+            if (keypoints[11].score > 0.5 && keypoints[9].score > 0.5) {
+                let diff = keypoints[11].position.y - keypoints[9].position.y;
+                document.getElementById("sim").innerHTML = keypoints[11].position.y + "  " + keypoints[9].position.y + " " + diff + " "+flash_start_flag;
+                if (diff > 300) {
+                    flash_start_flag = true;
+                }
+            }
+            // difference of leftHip and leftWrist
+            if (keypoints[12].score > 0.5 && keypoints[10].score > 0.5) {
+                let diff = keypoints[12].position.y - keypoints[10].position.y;
+                if (diff > 300) {
+                    flash_start_flag = false;
+                }
+            }
+        }
       if (score >= minPoseConfidence) {
         if (guiState.output.showPoints) {
           drawKeypoints(keypoints, minPartConfidence, ctx, scale);
@@ -276,6 +305,8 @@ function detectPoseInRealTime(video, net) {
 
   poseDetectionFrame();
 }
+
+
 
 /**
  * Kicks off the demo by loading the posenet model, finding and loading available

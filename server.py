@@ -30,6 +30,7 @@ if __name__ == '__main__':
             (r'/js/(.*)', web.StaticFileHandler, {'path': './static/js'}),
             (r'/css/(.*)', web.StaticFileHandler, {'path': './static/css'}),
             (r'/img/(.*)', web.StaticFileHandler, {'path': './static/img'}),
+            (r'/json/(.*)', web.StaticFileHandler, {'path': './static/json'}),
             (r'/video/(.*)', web.StaticFileHandler, {'path': './static/video'}),
             (r'/fonts/(.*)', web.StaticFileHandler, {'path': './static/fonts'})
         ],

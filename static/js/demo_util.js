@@ -61,11 +61,11 @@ function drawSkeleton(keypoints, minConfidence, ctx, scale = 1) {
 
 
   adjacentKeyPoints.forEach((keypoints) => {
-    console.log(keypoints[0].part);
+    // console.log(keypoints[0].part);
     paintColor = 'rgb(0,200,200)';
     str1 = keypoints[0].part + '&' + keypoints[1].part;
     str2 = keypoints[1].part + '&' + keypoints[0].part;
-    console.log(str1)
+    // console.log(str1)
     if (str1 in colors)
       paintColor = colors[str1];
     if (str2 in colors)

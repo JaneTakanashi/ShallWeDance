@@ -3,9 +3,12 @@
 
 <head>
     <title>zhu!</title>
+    <link rel="stylesheet" href="css/cssprogress.min.css" />
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <style>
 
     </style>
@@ -24,7 +27,7 @@
             </div>
         </div>
         <div class="section white">
-            <div class="row container">
+            <div class="container">
                 <h2 class="header">GAKKI- koi dance 恋ダンス</h2>
                 <div id="loading" class=class="grey-text text-darken-3 lighten-3">
                     Loading the model...
@@ -34,38 +37,74 @@
                         <div id='main' style='display:none'>
                             <video id="video" playsinline style=" -moz-transform: scaleX(-1);-o-transform: scaleX(-1);-webkit-transform: scaleX(-1);transform: scaleX(-1);display: none;">
                             </video>
-                            <canvas id="output" />
+                            <canvas id="output"></canvas>
                         </div>
                     </div>
                     <div class="col s6">
-                        <p>
-                            <!-- <video width="400" controls> -->
-                             <video id="koi_video" width="400">
-                                <source src="/video/gakki4_short.mp4" type="video/mp4"/>
+                        <p class="main_video">
+                            <video width="400" id="koi_video" controls>
+                             <!-- <video id="koi_video" width="400"> -->
+                                <source src="/video/gakki_final.mp4" type="video/mp4"/>
                              </video>
                          </p>
-                         <p><a class="waves-effect waves-light btn" onclick="play_koi();">play</a></p>
-                         <p><a class="waves-effect waves-light btn" onclick="pause_koi();">pause</a></p>
                          <p>
-                             <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-
-                             <!-- Modal Structure -->
-                             <div id="modal1" class="modal">
-                                 <div class="modal-content">
-                                     <h4>Modal Preview</h4>
-                                     <p>A bunch of text</p>
-                                     <video width="400" controls>
-                                         <source src="/video/gakki4_short.mp4" type="video/mp4"/>
-                                      </video>
-                                 </div>
-                                 <!-- <div class="modal-footer">
-                                     <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-                                 </div> -->
+                         <div class="row">
+                             <div class="col s5">
+                                 <video id="koi_video_tag" width="150">
+                                    <source src="/video/gakki_final_tag.mp4" type="video/mp4"/>
+                                 </video>
                              </div>
+                             <div class="col s7">
+                                    <p>
+                                     <div class="row">
+                                         <div class="col s3">
+                                             <a class="waves-effect waves-light btn" onclick="play_koi();">
+                                                 <i class="material-icons">play_arrow</i>
+                                             </a>
+                                         </div>
+                                         <div class="col s3">
+                                             <a class="waves-effect waves-light btn" onclick="pause_koi();">
+                                                 <i class="material-icons">pause</i>
+                                             </a>
+                                         </div>
 
+
+                                         <div class="col s6">
+                                             <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+                                             <!-- Modal Structure -->
+                                                <div id="modal1" class="modal">
+                                                    <div class="modal-content">
+                                                        <h4>Modal Preview</h4>
+                                                        <p>A bunch of text</p>
+                                                        <video width="400" controls>
+                                                            <source src="/video/gakki_final_tag.mp4" type="video/mp4"/>
+                                                        </video>
+                                         </div>
+                                         <!-- <div class="modal-footer">
+                                             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                                         </div> -->
+                                     </div>
+                                 </div>
+                             </div>
                          </p>
+                         <p><h5 id="similarity">Error: </h5></p>
+                             </div>
+                         </div>
+                     </p>
+
                     </div>
                 </div>
+                <p>
+                    <div class="cssProgress">
+          <div class="progress2">
+            <div id = "score_bar" class="cssProgress-bar cssProgress-success cssProgress-active" data-percent="65" style="width: 65%; transition: none 0s ease 0s;">
+              <span class="cssProgress-label">65%</span>
+            </div>
+          </div>
+        </div>
+                </p>
+                <p><h5 id="sim">Similarity: </h5></p>
+                <p><h5 id="sim1">Similarity: </h5></p>
                 <p class="grey-text text-darken-3 lighten-3">
                     Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.
                 </p>
@@ -86,24 +125,80 @@
     <script type="text/javascript" src="js/demo_util.js"></script>
     <script type="text/javascript" src="js/stats.min.js "></script>
     <script type="text/javascript" src="js/camera.js"></script>
+    <script type="text/javascript" src="js/similarity.js"></script>
+    <script type="text/javascript" src="js/math.min.js"></script>
     <script>
+        var dance_score_cnt = 0;
+        var json_data;
+        var keypoints = 12;
         var imageScaleFactor = 0.5;
         var outputStride = 16;
         var flipHorizontal = false;
-        var koi  = document.getElementById("koi_video")
+
+        var video_keypoints_id = [9, 7, 5, 6, 8, 10, 11, 12, 13, 14, 15, 16];
+        var flash_keypoints_id = [7, 6, 5, 2, 3, 4, 11, 8, 12, 9, 13, 10];
+        var video_vec = [];
+        var video_score_vec = [];
+
+        var flash_start_flag = false;
+        var flash_is_running = false;
+        var koi = document.getElementById("koi_video");
+        var koi_tag = document.getElementById("koi_video_tag");
+        var similarity_text = document.getElementById("similarity");
+        var detect_pose_flag = false;
 
         $(document).ready(function(){
             $('.parallax').parallax();
             $('.modal').modal();
+            setInterval(function() {
+                let flash_vec = get_flash_vec();
+                let sim_score = weightedDistanceMatching(video_vec, flash_vec, video_score_vec);
+                let dance_score = 0;
+                if (sim_score < 0.6) {
+                    dance_score = 1 - sim_score;
+                    dance_score_cnt += dance_score;
+                }
+                let percent = dance_score_cnt / 100;
+                similarity.innerHTML = "Error: " + sim_score + " " +dance_score_cnt;
+                $("#score_bar").css('width', percent+'%');
+                $("#score_bar").text(percent+'%');
+                // score_bar.animate({
+                //     width: percent
+                // }, {
+                //     duration: 100,
+                //     step: function(x) {
+                //         progress_label.text(Math.round(x) + '%');}
+                //     });
+                // console.log(flash_vec);
+                document.getElementById("sim1").innerHTML = flash_start_flag + " "+flash_is_running;
+                if (flash_start_flag && !flash_is_running) {
+                    koi.play();
+                    koi_tag.play();
+                    flash_is_running = true;
+                }
+                if (!flash_start_flag && flash_is_running) {
+                    koi.pause();
+                    koi_tag.pause();
+                    flash_is_running = false;
+                }
+            }, 1000);
+            setTimeout(function(){
+                detect_pose_flag = true;
+            }, 10000);
+        });
+
+        $.getJSON("json/koi.json", function(json) {
+            json_data = json;
         });
 
         function play_koi() {
-            console.log("play--")
             koi.play();
+            koi_tag.play();
         }
 
         function pause_koi() {
             koi.pause();
+            koi_tag.pause();
         }
     </script>
 </body>
