@@ -34,7 +34,7 @@ open browser and visit `localhost:8888` and the demo will be shown.
 
 #### 1. Tips
 
-Keeping all your body (head, wrists and ankles, etc) captured by the camera will increase the precision of the ketpoints detection.
+Keeping all your body (head, wrists and ankles, etc) captured by the camera will increase the precision of the keypoints detection.
 
 #### 2. Play/Pause the video
 
@@ -44,9 +44,9 @@ You can **press the pause button** or **raise your left hand up** for playing th
 
 #### 3. Scores
 
-Every second, the similarity of your pose and the video will be calculated. And more similar poses achieve higher scores.
+The similarity of your pose and the video will be calculated every second. And more similar poses achieve higher scores.
 
-As the figures show, the pose of first fig is more similar with the pose of the teaching video, and the error is around 0.407, which is smaller than the 0.585.
+As the figures show, the pose in the first fig is more similar with the pose in the teaching video, whose error is around 0.407, which is smaller than the 0.585.
 
 <div align=center>
 
@@ -60,11 +60,9 @@ As the figures show, the pose of first fig is more similar with the pose of the 
 
 #### 4. Technology details
 
-##### Keypoints
-
 All the keypoints below are used. [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose), a library for real-time multi-person keypoint detection and multi-threading written in C++ using OpenCV and Caffe is used for ketpoints detection in this app.
 
-[tensorflow.js](https://github.com/tensorflow/tfjs) is applied for real-time detection and it can run on web. The keypoints of dancing teaching video was tagged offline using by [OpenPose Pytorch Version](https://github.com/tensorboy/pytorch_Realtime_Multi-Person_Pose_Estimation), which is more accurate but needs more time.
+[tensorflow.js](https://github.com/tensorflow/tfjs) is applied for real-time detection and it can run on web. The keypoints of dancing teaching video was tagged offline by [OpenPose Pytorch Version](https://github.com/tensorboy/pytorch_Realtime_Multi-Person_Pose_Estimation), which is more accurate but needs more time.
 
 | Id   | Part          |
 | ---- | ------------- |
@@ -88,4 +86,22 @@ All the keypoints below are used. [OpenPose](https://github.com/CMU-Perceptual-C
 
 ### Automated generated video
 
+Click the "MODAL" button and you will see the generated video. It shows how it looks like when you can play this dance. (It need time training so I put my own trained model here :) This was achieved by [CycleGAN](https://github.com/junyanz/CycleGAN).
+
+The function was came out by the idea that if I can watch the video which shows how it looks like when I can hold this dance, I will be inspired to keep on learning it. 
+
+<div align=center>
+
 ![combine](static/gif/combine.gif)
+
+</div>
+
+### Functions need improving next step
+
+* improving the detection accuracy
+* improving the similarity accuracy
+* improving the GAN accuracy
+* achieve the recommendation function
+  * I want to recommend some goods to users, meanwhile he watch the generated video. And the recommend things are related to this dance.
+* dancing pose suggestions
+  * After the user learnt the dance, some suggestions can be proposed such as "keep your arms extended" or "Keeping your back straight".

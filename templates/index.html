@@ -42,8 +42,8 @@
                     </div>
                     <div class="col s6">
                         <p class="main_video">
-                            <video width="400" id="koi_video" controls>
-                             <!-- <video id="koi_video" width="400"> -->
+                            <!-- <video width="400" id="koi_video" controls> -->
+                             <video id="koi_video" width="400">
                                 <source src="/video/gakki_final.mp4" type="video/mp4"/>
                              </video>
                          </p>
@@ -108,7 +108,7 @@
                                  </div>
                              </div>
                          </p>
-                         <p><h5 id="similarity">Error: </h5></p>
+                         <p><h5 id="similarity">Pose Distance: </h5></p>
                              </div>
                          </div>
                      </p>
@@ -118,17 +118,17 @@
                 <p>
                     <div class="cssProgress">
           <div class="progress2">
-            <div id = "score_bar" class="cssProgress-bar cssProgress-success cssProgress-active" data-percent="65" style="width: 65%; transition: none 0s ease 0s;">
-              <span class="cssProgress-label">65%</span>
+            <div id = "score_bar" class="cssProgress-bar cssProgress-success cssProgress-active" data-percent="0" style="width: 0%; transition: none 0s ease 0s;">
+              <span class="cssProgress-label">0%</span>
             </div>
           </div>
         </div>
                 </p>
-                <p><h5 id="sim">Similarity: </h5></p>
-                <p><h5 id="sim1">Similarity: </h5></p>
-                <p class="grey-text text-darken-3 lighten-3">
+                <!-- <p><h5 id="sim">Similarity: </h5></p>
+                <p><h5 id="sim1">Similarity: </h5></p> -->
+                <!-- <p class="grey-text text-darken-3 lighten-3">
                     Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.
-                </p>
+                </p> -->
             </div>
         </div>
         <div class="parallax-container">
@@ -182,7 +182,7 @@
                     dance_score_cnt += dance_score;
                 }
                 let percent = dance_score_cnt;
-                similarity.innerHTML = "Error: " + sim_score + " " +dance_score_cnt;
+                similarity.innerHTML = "Pose Distance: " + sim_score + " " +dance_score_cnt;
                 $("#score_bar").css('width', percent+'%');
                 $("#score_bar").text(percent+'%');
                 // score_bar.animate({
@@ -193,7 +193,7 @@
                 //         progress_label.text(Math.round(x) + '%');}
                 //     });
                 // console.log(flash_vec);
-                document.getElementById("sim1").innerHTML = flash_start_flag + " "+flash_is_running;
+                // document.getElementById("sim1").innerHTML = flash_start_flag + " "+flash_is_running;
                 if (flash_start_flag && !flash_is_running) {
                     koi.play();
                     koi_tag.play();

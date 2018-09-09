@@ -274,7 +274,7 @@ function detectPoseInRealTime(video, net) {
         if(detect_pose_flag) {
             if (keypoints[11].score > 0.5 && keypoints[9].score > 0.5) {
                 let diff = keypoints[11].position.y - keypoints[9].position.y;
-                document.getElementById("sim").innerHTML = keypoints[11].position.y + "  " + keypoints[9].position.y + " " + diff + " "+flash_start_flag;
+                // document.getElementById("sim").innerHTML = keypoints[11].position.y + "  " + keypoints[9].position.y + " " + diff + " "+flash_start_flag;
                 if (diff > 300) {
                     flash_start_flag = true;
                 }
