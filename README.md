@@ -32,15 +32,23 @@ open browser and visit `localhost:8888` and the demo will be shown.
 
 ### Dance teaching
 
-#### Tips
+#### 1. Tips
 
-Stay 
+Keeping all your body (head, wrists and ankles, etc) captured by the camera will increase the precision of the ketpoints detection.
 
-#### Play the video
+#### 2. Play/Pause the video
 
-You can **press the play button** or **raise your right hand up**.
+You can **press the play button** or **raise your right hand up** for playing the video.
 
+You can **press the pause button** or **raise your left hand up** for playing the video.
 
+#### 3. Scores
+
+Every second, the similarity of your pose and the video will be calculated. And more similar poses achieve higher scores.
+
+As the figures show, the pose of first fig is more similar with the pose of the teaching video, and the error is around 0.407, which is smaller than the 0.585.
+
+<div align=center>
 
 <img src="static/img/Snip20180909_8.png" width="600px">
 
@@ -48,9 +56,15 @@ You can **press the play button** or **raise your right hand up**.
 
 <img src="static/img/Snip20180909_9.png" width="600px">
 
-### Keypoints
+</div>
 
-All keypoints are indexed by part id. The parts and their ids are:
+#### 4. Technology details
+
+##### Keypoints
+
+All the keypoints below are used. [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose), a library for real-time multi-person keypoint detection and multi-threading written in C++ using OpenCV and Caffe is used for ketpoints detection in this app.
+
+[tensorflow.js](https://github.com/tensorflow/tfjs) is applied for real-time detection and it can run on web. The keypoints of dancing teaching video was tagged offline using by [OpenPose Pytorch Version](https://github.com/tensorboy/pytorch_Realtime_Multi-Person_Pose_Estimation), which is more accurate but needs more time.
 
 | Id   | Part          |
 | ---- | ------------- |
@@ -72,6 +86,6 @@ All keypoints are indexed by part id. The parts and their ids are:
 | 15   | leftAnkle     |
 | 16   | rightAnkle    |
 
-### Generated Video
+### Automated generated video
 
 ![combine](static/gif/combine.gif)
