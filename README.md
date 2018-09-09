@@ -4,7 +4,15 @@ Shall We Dance is a dancing teaching web application. The users dancing action w
 
 ![crop](static/gif/crop.gif)
 
+![crop](static/gif/crop_gan.gif)
+
 Mercari Hackathon project.
+
+## Requirements
+
+* Python 3.6
+* Tornado 5.x
+* Camera
 
 ## Installation
 
@@ -14,3 +22,32 @@ cd ShallWeDance
 python server.py --port=8888
 ```
 
+open browser and visit `localhost:8888` and the demo will be shown.
+
+## Usage
+
+### 
+
+### Keypoints
+
+All keypoints are indexed by part id. The parts and their ids are:
+
+| Id   | Part          |
+| ---- | ------------- |
+| 0    | nose          |
+| 1    | leftEye       |
+| 2    | rightEye      |
+| 3    | leftEar       |
+| 4    | rightEar      |
+| 5    | leftShoulder  |
+| 6    | rightShoulder |
+| 7    | leftElbow     |
+| 8    | rightElbow    |
+| 9    | leftWrist     |
+| 10   | rightWrist    |
+| 11   | leftHip       |
+| 12   | rightHip      |
+| 13   | leftKnee      |
+| 14   | rightKnee     |
+| 15   | leftAnkle     |
+| 16   | rightAnkle    |
