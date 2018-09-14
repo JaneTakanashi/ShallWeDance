@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>zhu!</title>
+    <title>ShallWeDance</title>
     <link rel="stylesheet" href="css/cssprogress.min.css" />
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
     <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" />
@@ -19,9 +19,9 @@
         <div id="parallax1" class="parallax-container">
             <div class="parallax">
                 <div class="row">
-                    <div class="col s6">
+                    <!-- <div class="col s6">
                         <h1>Shall We Dance</h1>
-                    </div>
+                    </div> -->
                 </div>
                 <img src="img/bg6.jpeg" >
             </div>
@@ -34,11 +34,11 @@
                 </div>
                 <div class="row">
                     <div class="col s6">
-                        <div id='main' style='display:none'>
+                        <!-- <div id='main' style='display:none'>
                             <video id="video" playsinline style=" -moz-transform: scaleX(-1);-o-transform: scaleX(-1);-webkit-transform: scaleX(-1);transform: scaleX(-1);display: none;">
                             </video>
                             <canvas id="output"></canvas>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col s6">
                         <p class="main_video">
@@ -72,34 +72,65 @@
                                          <div class="col s6">
                                              <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
                                              <!-- Modal Structure -->
-                                                <div id="modal1" class="modal">
-                                                    <div class="modal-content">
-                                                        <h4>Modal Preview</h4>
-                                                        <p>A bunch of text</p>
-                                                        <div class="row">
-                                                            <div class="col s6">
-                                                                <video id="video_crop" width="300" >
-                                                                    <source src="/video/gakki_crop.mp4" type="video/mp4"/>
+                                                <div id="modal1" class="modal" style="width: 800px; height: 1000px; max-height: 90%;">
+                                                    <div class="modal-content" style="padding-left: 0; padding-bottom: 0; padding-right: 0;">
+                                                        <!-- <div class="row" style="margin-left: 0; margin-right: 0;"> -->
+                                                            <!-- <div class="col s5"> -->
+                                                            <div style="text-align: center;">
+                                                                <video id="video_crop" width="400" controls>
+                                                                    <source src="/video/gakki_final.mp4" type="video/mp4"/>
                                                                 </video>
                                                             </div>
-                                                            <div class="col s6">
-                                                                <video id="video_gan" width="300" >
-                                                                    <source src="/video/gan.mp4" type="video/mp4"/>
-                                                                </video>
-                                                            </div>
-                                                        </div>
+                                                            <!-- </div> -->
+
+
+                                                        <!-- </div> -->
                                                         <div class="row">
-                                                            <div class="col s3">
-                                                                <a class="waves-effect waves-light btn" onclick="play_gan();">
-                                                                    <i class="material-icons">play_arrow</i>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col s3">
-                                                                <a class="waves-effect waves-light btn" onclick="pause_gan();">
-                                                                    <i class="material-icons">pause</i>
-                                                                </a>
+
+                                                            <div class="col s8 offset-s2" >
+                                                                <!-- <div style="border-top: 5px solid #ecedf1"> -->
+                                                                    <h6 class="header" style="margin-bottom:5px">Pose Suggestions:</h6>
+                                                                    <div class="grey-text text-darken-2">
+                                                                        <ur>
+                                                                        <li>Whether the shot should be from below, above or equal height. </li>
+                                                                        <li>Direction of knees and feet</li>
+                                                                        <li>Be careful of making the shot too crotch-centric. You can use a hand or leg thrown casually in the foreground to stop this.</li>
+                                                                       </ur>
+                                                                    </div>
+                                                                <!-- </div> -->
                                                             </div>
                                                         </div>
+
+
+                                                        <div style="background: #f2f2f2; padding: 2px 2px;">
+                                                            <div style="text-align: center;">
+                                                                <!-- <h6 class="grey-text text-darken-2">You may like...</h6> -->
+                                                                <h6 class="header">You may like...</h6>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col s3">
+                                                                    <img src="img/shirt.jpg" style="width:100%;" onclick="window.open('https://www.mercari.com/us/item/m18994853651/?ref=search_results');">
+                                                                    <p><span class="color-name">Authentic Burberry White Tee SzS</span><br/>
+                                                                        <span class="color-price">$80.00</span></p>
+                                                                </div>
+                                                                <div class="col s3">
+                                                                    <img src="img/skirt.jpg" style="width:100%;" onclick="window.open('https://www.mercari.com/us/item/m77720537950/?ref=search_results');">
+                                                                    <p><span class="color-name">skater Skirt lush red</span><br/>
+                                                                    <span class="color-price">$15.00</span></p>
+                                                                </div>
+                                                                <div class="col s3">
+                                                                    <img src="img/shoes.jpg" style="width:100%;" onclick="window.open('//https://www.mercari.com/us/item/m54131812655/?ref=search_results');">
+                                                                    <p><span class="color-name">New Balance 810</span><br/>
+                                                                    <span class="color-price">$17.00</span></p>
+                                                                </div>
+                                                                <div class="col s3">
+                                                                    <img src="img/wig1.jpg" style="width:100%;" onclick="window.open('https://www.mercari.com/us/item/m88688756040/?ref=search_results');">
+                                                                    <p><span class="color-name">26" Wig Caramel with Black Roots| Mia</span><br/>
+                                                                    <span class="color-price">$69.00</span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                          </div>
                                          <!-- <div class="modal-footer">
                                              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
