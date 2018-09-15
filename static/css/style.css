@@ -38,3 +38,10 @@ main {
 .modal {
     top: 5%!important;
 }
+
+.video_content {
+    background: white;
+    /* background: #3b3b3b!important; */
+    /* width: 800px; */
+    /* height: 500px; */
+}

@@ -34,6 +34,7 @@ function add(a, b) {
 }
 
 function weightedDistanceMatching(video_vec, flash_vec, video_score_vec) {
+	// console.log("weighted")
   let vector1PoseXY = l2Norm(translation(video_vec));
   let vector1Confidences = video_score_vec;
   let vector1ConfidenceSum = video_score_vec.reduce(add, 0);
@@ -52,9 +53,27 @@ function weightedDistanceMatching(video_vec, flash_vec, video_score_vec) {
   for (let i = 0; i < vector1PoseXY.length; i++) {
     let tempConf = Math.floor(i / 2);
     let tempSum = Math.abs(vector1PoseXY[i] - vector2PoseXY[i]);
+	if(isNaN(tempSum)) {
+		continue;
+	}
+	// console.log(vector1PoseXY[i]+" "+vector2PoseXY[i])
+	// console.log(tempSum);
+	if(i == 0 || i == 1) {
+		left_arm += tempSum;
+	} else if(i == 2 || i == 3 || i == 6 || i== 7) {
+		body += tempSum;
+	} else if(i == 4 || i == 5) {
+		right_arm += tempSum;
+	} else if(i== 8 || i== 10) {
+		left_leg += tempSum;
+	} else if(i == 9 || i == 11) {
+		right_leg += tempSum;
+	}
+	// console.log(left_arm+" "+right_arm+" "+body);
 	// let tempSum = vector1Confidences[tempConf] * Math.abs(vector1PoseXY[i] - vector2PoseXY[i]);
     summation2 = summation2 + tempSum;
   }
+  if(summation2 == 0) return 100;
   return summation2;
   // return summation1 * summation2;
   // console.log(summation1 * summation2);
@@ -65,7 +84,7 @@ function get_flash_vec() {
 	let fps = 29;
 	let dur = koi.currentTime;
 
-	let frame_no = Math.round(fps * dur);
+	let frame_no = Math.round(fps * dur + 1);
 	// console.log("frame no: " + frame_no);
 	let flash_vec = [];
 	for (id of flash_keypoints_id) {

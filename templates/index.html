@@ -34,11 +34,11 @@
                 </div>
                 <div class="row">
                     <div class="col s6">
-                        <!-- <div id='main' style='display:none'>
+                        <div id='main' style='display:none'>
                             <video id="video" playsinline style=" -moz-transform: scaleX(-1);-o-transform: scaleX(-1);-webkit-transform: scaleX(-1);transform: scaleX(-1);display: none;">
                             </video>
                             <canvas id="output"></canvas>
-                        </div> -->
+                        </div>
                     </div>
                     <div class="col s6">
                         <p class="main_video">
@@ -70,42 +70,56 @@
 
 
                                          <div class="col s6">
-                                             <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+                                             <a class="waves-effect waves-light btn modal-trigger" onclick="modal_click()" href="#modal1">Modal</a>
                                              <!-- Modal Structure -->
                                                 <div id="modal1" class="modal" style="width: 800px; height: 1000px; max-height: 90%;">
-                                                    <div class="modal-content" style="padding-left: 0; padding-bottom: 0; padding-right: 0;">
+                                                    <div class="modal-content" style="padding-top: 0; padding-left: 0; padding-bottom: 0; padding-right: 0;">
                                                         <!-- <div class="row" style="margin-left: 0; margin-right: 0;"> -->
                                                             <!-- <div class="col s5"> -->
-                                                            <div style="text-align: center;">
-                                                                <video id="video_crop" width="400" controls>
-                                                                    <source src="/video/gakki_final.mp4" type="video/mp4"/>
-                                                                </video>
+                                                            <div class="video_content">
+                                                                <br/>
+                                                                <div class="row">
+                                                                <!-- <div style="text-align: center;"> -->
+                                                                <div class="col s6 offset-s1">
+                                                                    <video id="video_crop" width="400" controls>
+                                                                        <source src="/video/gakki_final.mp4" type="video/mp4"/>
+                                                                    </video>
+                                                                </div>
+                                                                    <div class="col s4">
+                                                                        <canvas id="r_myChart" width="450!important" height="400!important" ></canvas>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+
+                                                                    <div class="col s7 offset-s2" >
+                                                                        <!-- <div style="border-top: 5px solid #ecedf1"> -->
+                                                                            <h6 class="header" style="margin-bottom:5px">Pose Suggestions:</h6>
+                                                                            <!-- <div class="grey-text text-darken-2"> -->
+                                                                            <div style="color:#aaaaaa">
+                                                                                <ur>
+                                                                                <li>Whether the shot should be from below, above or equal height. </li>
+                                                                                <li>Direction of knees and feet</li>
+                                                                                <li>Be careful of making the shot too crotch-centric. You can use a hand or leg thrown casually in the foreground to stop this.</li>
+                                                                               </ur>
+                                                                            </div>
+                                                                        <!-- </div> -->
+                                                                    </div>
+                                                                    <!-- <div class="col s4">
+                                                                        <canvas id="r_myChart" width="450!important" height="400!important" ></canvas>
+                                                                    </div> -->
+                                                                    <div style="text-align: center;">
+                                                                        <canvas id="myChart" width="700px!important" height="200px"></canvas>
+                                                                    </div>
+                                                                    <!-- <canvas id="r_myChart" width="750!important" height="200"></canvas> -->
+                                                                </div>
                                                             </div>
                                                             <!-- </div> -->
-
-
-                                                        <!-- </div> -->
-                                                        <div class="row">
-
-                                                            <div class="col s8 offset-s2" >
-                                                                <!-- <div style="border-top: 5px solid #ecedf1"> -->
-                                                                    <h6 class="header" style="margin-bottom:5px">Pose Suggestions:</h6>
-                                                                    <div class="grey-text text-darken-2">
-                                                                        <ur>
-                                                                        <li>Whether the shot should be from below, above or equal height. </li>
-                                                                        <li>Direction of knees and feet</li>
-                                                                        <li>Be careful of making the shot too crotch-centric. You can use a hand or leg thrown casually in the foreground to stop this.</li>
-                                                                       </ur>
-                                                                    </div>
-                                                                <!-- </div> -->
-                                                            </div>
-                                                        </div>
 
 
                                                         <div style="background: #f2f2f2; padding: 2px 2px;">
                                                             <div style="text-align: center;">
                                                                 <!-- <h6 class="grey-text text-darken-2">You may like...</h6> -->
-                                                                <h6 class="header">You may like...</h6>
+                                                                <h6 class="header" style="color:#aaaaaa">You may like...</h6>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col s3">
@@ -179,6 +193,8 @@
     <script type="text/javascript" src="js/camera.js"></script>
     <script type="text/javascript" src="js/similarity.js"></script>
     <script type="text/javascript" src="js/math.min.js"></script>
+    <script type="text/javascript" src="js/Chart.js"></script>
+
     <script>
         var dance_score_cnt = 0;
         var json_data;
@@ -191,6 +207,7 @@
         var flash_keypoints_id = [7, 6, 5, 2, 3, 4, 11, 8, 12, 9, 13, 10];
         var video_vec = [];
         var video_score_vec = [];
+        var scores = [];
 
         var flash_start_flag = false;
         var flash_is_running = false;
@@ -201,21 +218,111 @@
         var similarity_text = document.getElementById("similarity");
         var detect_pose_flag = false;
 
+        var left_arm = 0;
+        var left_leg = 0;
+        var right_arm = 0;
+        var right_leg = 0;
+        var body = 0;
+        function modal_click() {
+            console.log("body: "+body);
+            var ctx = document.getElementById("myChart");
+            var r_ctx = document.getElementById("r_myChart");
+
+            var myRadarChart = new Chart(r_ctx, {
+                responsive: false,
+                type: 'radar',
+                data: {
+                    labels: ['Body', 'Right Arm', 'Right Leg', 'Left Leg', 'Left Arm'],
+                    datasets: [{
+                            data: [body * 100. / 4, right_arm * 100. / 2, right_leg * 100. / 2, left_leg * 100./ 2, right_arm * 100. / 2],
+                            fill:true,
+                            backgroundColor:"rgba(255, 99, 132, 0.2)",
+                            borderColor:"rgb(255, 99, 132)",
+                            pointBackgroundColor:"rgb(255, 99, 132)",
+                            pointBorderColor:"#fff",
+                            pointHoverBackgroundColor:"#fff",
+                            pointHoverBorderColor:"rgb(255, 99, 132)"
+                        }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    }
+                }
+            });
+
+            var myLineChart = new Chart(ctx, {
+                responsive: false,
+                type: 'line',
+    			data: {
+    				// labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    labels: label,
+    				datasets: [{
+    					// label: 'My First dataset',
+    					// backgroundColor: window.chartColors.red,
+    					// borderColor: window.chartColors.red,
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+    					data: scores,
+    					fill: false,
+    				}]
+    			},
+    			options: {
+                    legend: {
+                        display: false
+                    },
+    				responsive: true,
+    				title: {
+    					display: true,
+    					text: 'Score Line Chart'
+    				},
+    				tooltips: {
+    					mode: 'index',
+    					intersect: false,
+    				},
+    				hover: {
+    					mode: 'nearest',
+    					intersect: true
+    				},
+    				scales: {
+    					xAxes: [{
+    						display: true,
+    						scaleLabel: {
+    							display: true,
+    							labelString: 'Second'
+    						}
+    					}],
+    					yAxes: [{
+    						display: true,
+    						scaleLabel: {
+    							display: true,
+    							labelString: 'Score'
+    						}
+    					}]
+    				}
+    			}
+            });
+        }
         $(document).ready(function(){
             $('.parallax').parallax();
             $('.modal').modal();
             setInterval(function() {
-                let flash_vec = get_flash_vec();
-                let sim_score = weightedDistanceMatching(video_vec, flash_vec, video_score_vec);
-                let dance_score = 0;
-                if (sim_score < 0.6) {
-                    dance_score = 1 - sim_score;
-                    dance_score_cnt += dance_score;
+                if(flash_is_running) {
+                    let flash_vec = get_flash_vec();
+                    let sim_score = weightedDistanceMatching(video_vec, flash_vec, video_score_vec);
+                    let dance_score = 0;
+                    if (sim_score < 0.8) {
+                        dance_score = 1 - sim_score;
+                        dance_score_cnt += dance_score;
+                    }
+
+                    scores.push(dance_score);
+                    let percent = dance_score_cnt;
+                    similarity.innerHTML = "Pose Distance: " + sim_score + " " +dance_score_cnt;
+                    $("#score_bar").css('width', percent+'%');
+                    $("#score_bar").text(percent+'%');
                 }
-                let percent = dance_score_cnt;
-                similarity.innerHTML = "Pose Distance: " + sim_score + " " +dance_score_cnt;
-                $("#score_bar").css('width', percent+'%');
-                $("#score_bar").text(percent+'%');
+
                 // score_bar.animate({
                 //     width: percent
                 // }, {
@@ -264,6 +371,14 @@
             gan.pause();
             crop_gan.pause();
         }
+        var label = [];
+        for(let i = 1; i < 100; i++) {
+            label.push(i);
+        }
+
+
+
+
     </script>
 </body>
 </html>
