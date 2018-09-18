@@ -37,11 +37,12 @@ main {
 
 .modal {
     top: 5%!important;
+    background-color: white;
 }
 
 .video_content {
-    background: white;
-    /* background: #3b3b3b!important; */
+    background-color: white;
+    /* background-color: #3b3b3b!important; */
     /* width: 800px; */
     /* height: 500px; */
 }

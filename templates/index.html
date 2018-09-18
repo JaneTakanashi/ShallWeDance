@@ -23,54 +23,54 @@
                         <h1>Shall We Dance</h1>
                     </div> -->
                 </div>
-                <img src="img/bg6.jpeg" >
+                <img src="img/bg6-1.jpg" >
             </div>
         </div>
         <div class="section white">
             <div class="container">
-                <h2 class="header">GAKKI- koi dance 恋ダンス</h2>
+                <h2 class="header">koi dance-恋ダンス</h2>
                 <div id="loading" class="grey-text text-darken-3 lighten-3">
                     Loading the model...
                 </div>
                 <div class="row">
                     <div class="col s6">
-                        <div id='main' style='display:none'>
+                        <div id="main" style="display:none">
                             <video id="video" playsinline style=" -moz-transform: scaleX(-1);-o-transform: scaleX(-1);-webkit-transform: scaleX(-1);transform: scaleX(-1);display: none;">
                             </video>
                             <canvas id="output"></canvas>
                         </div>
                     </div>
                     <div class="col s6">
-                        <p class="main_video">
+                        <div class="main_video">
                             <!-- <video width="400" id="koi_video" controls> -->
                              <video id="koi_video" width="400">
                                 <source src="/video/gakki_final.mp4" type="video/mp4"/>
                              </video>
-                         </p>
+                         </div>
                          <p>
                          <div class="row">
                              <div class="col s5">
                                  <video id="koi_video_tag" width="150">
-                                    <source src="/video/gakki_final_tag.mp4" type="video/mp4"/>
+                                    <source src="/video/tag_gakki.mp4" type="video/mp4"/>
                                  </video>
                              </div>
                              <div class="col s7">
                                     <p>
                                      <div class="row">
                                          <div class="col s3">
-                                             <a class="waves-effect waves-light btn" onclick="play_koi();">
+                                             <a class="waves-effect waves-light btn deep-purple lighten-3" onclick="play_koi();">
                                                  <i class="material-icons">play_arrow</i>
                                              </a>
                                          </div>
                                          <div class="col s3">
-                                             <a class="waves-effect waves-light btn" onclick="pause_koi();">
+                                             <a class="waves-effect waves-light btn deep-purple lighten-3" onclick="pause_koi();">
                                                  <i class="material-icons">pause</i>
                                              </a>
                                          </div>
 
 
                                          <div class="col s6">
-                                             <a class="waves-effect waves-light btn modal-trigger" onclick="modal_click()" href="#modal1">Modal</a>
+                                             <a class="waves-effect waves-light btn modal-trigger deep-purple lighten-3" onclick="modal_click()" href="#modal1">Analyse</a>
                                              <!-- Modal Structure -->
                                                 <div id="modal1" class="modal" style="width: 800px; height: 1000px; max-height: 90%;">
                                                     <div class="modal-content" style="padding-top: 0; padding-left: 0; padding-bottom: 0; padding-right: 0;">
@@ -82,7 +82,7 @@
                                                                 <!-- <div style="text-align: center;"> -->
                                                                 <div class="col s6 offset-s1">
                                                                     <video id="video_crop" width="400" controls>
-                                                                        <source src="/video/gakki_final.mp4" type="video/mp4"/>
+                                                                        <source src="/video/gakki_new3.mp4" type="video/mp4"/>
                                                                     </video>
                                                                 </div>
                                                                     <div class="col s4">
@@ -176,9 +176,15 @@
                 </p> -->
             </div>
         </div>
+        <div class="fixed-action-btn">
+          <a class="btn-floating btn-large deep-purple lighten-3" onclick="window.open('https://experiments.withgoogle.com/collection/ai/move-mirror/view/mirror');">
+            <i class="large material-icons">format_quote</i>
+          </a>
+        </div>
+
         <div class="parallax-container">
             <div class="parallax">
-                <img src="img/bg5.jpg">
+                <img src="img/bg5-2.jpg" height=200px>
             </div>
         </div>
     </main>
@@ -251,6 +257,10 @@
                 }
             });
 
+            var label = [];
+            for(let i = 1; i < 100; i++) {
+                label.push(i);
+            }
             var myLineChart = new Chart(ctx, {
                 responsive: false,
                 type: 'line',
@@ -345,6 +355,7 @@
             }, 1000);
             setTimeout(function(){
                 detect_pose_flag = true;
+                console.log(detect_pose_flag)
             }, 10000);
         });
 
@@ -371,10 +382,11 @@
             gan.pause();
             crop_gan.pause();
         }
-        var label = [];
-        for(let i = 1; i < 100; i++) {
-            label.push(i);
-        }
+
+
+
+
+
 
 
 

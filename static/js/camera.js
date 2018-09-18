@@ -78,7 +78,8 @@ async function loadVideo() {
 const guiState = {
   algorithm: 'single-pose',
   input: {
-    mobileNetArchitecture: isMobile() ? '0.50' : '1.01',
+    // mobileNetArchitecture: isMobile() ? '0.50' : '1.01',
+    mobileNetArchitecture: '0.75',
     outputStride: 16,
     imageScaleFactor: 0.5,
   },
@@ -274,15 +275,16 @@ function detectPoseInRealTime(video, net) {
         if(detect_pose_flag) {
             if (keypoints[11].score > 0.5 && keypoints[9].score > 0.5) {
                 let diff = keypoints[11].position.y - keypoints[9].position.y;
+                console.log(diff);
                 // document.getElementById("sim").innerHTML = keypoints[11].position.y + "  " + keypoints[9].position.y + " " + diff + " "+flash_start_flag;
-                if (diff > 300) {
+                if (diff > 200) {
                     flash_start_flag = true;
                 }
             }
             // difference of leftHip and leftWrist
             if (keypoints[12].score > 0.5 && keypoints[10].score > 0.5) {
                 let diff = keypoints[12].position.y - keypoints[10].position.y;
-                if (diff > 300) {
+                if (diff > 200) {
                     flash_start_flag = false;
                 }
             }
